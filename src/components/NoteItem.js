@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import { deleteNote } from "../store/actions/noteDataActions";
 import * as actionTypes from "../store/actions/actionTypes"
+import * as messageCreator from "./helper/_messageCreator";
 
-export class NoteItem extends Component {
+class NoteItem extends Component {
 
   handleOpenEdit = (item, id) => {
     item["key"] = id;
@@ -11,9 +12,11 @@ export class NoteItem extends Component {
   }
 
   handleDelete = (deleteId) => {
-    if (window.confirm("Are you sure ?"))
+    if (window.confirm("Are you sure ?")){
       this.props.deleteFunc(deleteId);
-    } 
+      this.props.throwMessage(messageCreator.getMessDeleteDone());
+    }
+  } 
 
   renderNewFlag = (unixTime) => {
     const nowUnixTime = Math.round((new Date()).getTime() / 1000);
@@ -65,7 +68,8 @@ const mapDispatchToProps = (dispatch) => {
         type : actionTypes.TURN_EDIT_ON, 
         itemEdit : noteItem
       })
-    }
+    },
+    throwMessage : (message) => dispatch({type: actionTypes.ADD_MESSAGE, message})
   }
 }
 

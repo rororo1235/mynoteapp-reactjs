@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class Breadcrumb extends Component {
+class Breadcrumb extends Component {
   render() {
     const {address} = this.props;
     return (

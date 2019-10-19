@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class TopMenu extends Component {
+class TopMenu extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

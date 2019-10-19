@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions/actionTypes";
 import { addNewNote, saveEditNote } from "../store/actions/noteDataActions";
+import * as messageCreator from "./helper/_messageCreator";
 
-export class NoteForm extends Component {
+class NoteForm extends Component {
   
   handleCancel = event => {
     event.preventDefault();
-
+    //var message = "";
     if (this.props.editModel != null) {
       this.props.cancelEdit();
-    } else this.props.cancelAdd();
+      //message = messageCreator.getMessEditOff();
+    } else {
+      this.props.cancelAdd();
+      //message = messageCreator.getMessAddOff();
+    };
+    //this.props.throwMessage(message);
   };
 
   handleChange = event => {
@@ -23,6 +29,7 @@ export class NoteForm extends Component {
     try {
       const { title, content } = this.state;
       this.props.addNewFunc({ title, content });
+      this.props.throwMessage(messageCreator.getMessAddDone());
       event.target.reset();
       this.setState({
         title: null,
@@ -46,6 +53,7 @@ export class NoteForm extends Component {
     const lastEditDate = new Date().getTime() / 1000
     editedItem[this.props.editModel.key] = { title, content,lastEditDate };
     this.props.editSaveFunc(editedItem);
+    this.props.throwMessage(messageCreator.getMessEditDone());
   };
 
   handleSubmit = event => {
@@ -132,7 +140,8 @@ const mapDispatchToProps = dispatch => {
     cancelAdd: () => dispatch({ type: actionTypes.TURN_ADD_OFF }),
     addNewFunc: newNote => dispatch(addNewNote(newNote)),
     editSaveFunc: editNote => dispatch(saveEditNote(editNote)),
-    cancelEdit: () => dispatch({ type: actionTypes.TURN_EDIT_OFF })
+    cancelEdit: () => dispatch({ type: actionTypes.TURN_EDIT_OFF }),
+    throwMessage : (message) => dispatch({type: actionTypes.ADD_MESSAGE, message})
   };
 };
 

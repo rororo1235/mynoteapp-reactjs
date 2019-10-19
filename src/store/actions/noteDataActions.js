@@ -37,7 +37,6 @@ export const deleteNote = (noteId) => {
 
 export const saveEditNote = (editedItem) => {
     return dispatch => {
-        console.log(editedItem);
         noteDataRef.update(editedItem);
         dispatch({
             type : actionTypes.EDIT,

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Loading from "./Loading";
 import * as actionTypes from "../store/actions/actionTypes";
+import * as messageCreator from "./helper/_messageCreator";
 
-export class SearchAndSort extends Component {
+class SearchAndSort extends Component {
 
   handleChange = (event) => {
     this.setState({
@@ -18,10 +19,16 @@ export class SearchAndSort extends Component {
     }
   }
 
-  handleCancel = (event) => {
+  handleCancelSearch = (event) => {
     event.target.reset();
     this.props.cancelSearch();
     this.setState({searchKey : ""});
+    this.props.throwMessage(messageCreator.getMessSearchOff());
+  }
+
+  handleCancelSort = () => {
+    this.props.cancelSort();
+    this.props.throwMessage(messageCreator.getMessSortOff());
   }
 
   render() {
@@ -44,7 +51,7 @@ export class SearchAndSort extends Component {
         </div>
         <div className="card-body">
           <div className="search-form">
-            <form onSubmit={(event) => this.handleSearchSubmit(event)} onReset={(event) => this.handleCancel(event)}>
+            <form onSubmit={(event) => this.handleSearchSubmit(event)} onReset={(event) => this.handleCancelSearch(event)}>
               <input required onChange={(event) => this.handleChange(event)} name="searchKey" type="text" className="form-control mr-2" placeholder="Search key ..." />
               <div className="float-right btn-group mt-2">
                 {this.props.searchKey !== null ? <button type="reset" className="btn btn-secondary">Cancel</button> : null}
@@ -58,8 +65,9 @@ export class SearchAndSort extends Component {
                 <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_TITLE_ASC)}>Title A-Z</button>
                 <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_TITLE_DESC)}>Title Z-A</button>
                 <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_DATE_ASC)}>Date asc</button>
+                <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_DATE_DESC)}>Date desc</button>
                 <div role="separator" className="dropdown-divider" />
-                <button className="dropdown-item btn" onClick={() => this.props.cancelSort()}>Reset sort</button>
+                <button className="dropdown-item btn" onClick={this.handleCancelSort}>Reset sort</button>
             </div>
           </div>
         </div>
@@ -80,7 +88,8 @@ const mapDispatchToProps = dispatch => {
     turnSearchOn : (keyword) => dispatch({type : actionTypes.TURN_SEARCH_ON, keyword}),
     cancelSearch : () => dispatch({type : actionTypes.TURN_SEARCH_OFF}),
     cancelSort : () => dispatch({type: actionTypes.TURN_SORT_OFF}),
-    turnSortOn : (modeName) => dispatch({type: actionTypes.TURN_SORT_ON, modeName})
+    turnSortOn : (modeName) => dispatch({type: actionTypes.TURN_SORT_ON, modeName}),
+    throwMessage : (message) => dispatch({type: actionTypes.ADD_MESSAGE, message})
   }
 }
 

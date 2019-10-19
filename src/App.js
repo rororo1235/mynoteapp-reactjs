@@ -8,6 +8,7 @@ import SearchAndSort from "./components/SearchAndSort";
 import Actions from "./components/Actions";
 import NoteForm from "./components/NoteForm";
 import { connect } from "react-redux";
+import Messages from "./components/Messages";
 
 export class App extends Component {
   render() {
@@ -21,6 +22,7 @@ export class App extends Component {
     return (
       <div className="bg-light text-dark">
         <TopMenu />
+        <Messages />
         <div className="container mt-3">
           <div className="row flex-column-reverse flex-md-row">
             <div className="col-sm-8 col-12 mb-3 px-2">

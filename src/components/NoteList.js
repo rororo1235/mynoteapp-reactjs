@@ -4,9 +4,9 @@ import { getAllNotes } from "../store/actions/noteDataActions";
 import { connect } from "react-redux";
 import Loading from "./Loading";
 import * as actionTypes from "../store/actions/actionTypes";
-import * as handler from "./_function";
+import * as helper from "./helper/_function";
 
-export class NoteList extends Component {
+class NoteList extends Component {
   componentDidMount() {
     this.props.getNotes();
   }
@@ -24,13 +24,13 @@ export class NoteList extends Component {
   getResultSort = (sortMode, allNotes) => {
     switch (sortMode) {
       case actionTypes.SORT_TITLE_ASC:
-        return handler.sortTitleAsc(allNotes);
+        return helper.sortTitleAsc(allNotes);
       case actionTypes.SORT_TITLE_DESC:
-        return handler.sortTitleDesc(allNotes);
+        return helper.sortTitleDesc(allNotes);
       case actionTypes.SORT_DATE_ASC:
-        return handler.sortDateAsc(allNotes);
+        return helper.sortDateAsc(allNotes);
       case actionTypes.SORT_DATE_DESC:
-        return handler.sortDateDesc(allNotes);
+        return helper.sortDateDesc(allNotes);
       default:
         return allNotes;
     }

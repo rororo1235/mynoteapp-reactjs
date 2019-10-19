@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions/actionTypes";
 
-export class Actions extends Component {
+class Actions extends Component {
   render() {
     return (
       <div className="card my-2">
