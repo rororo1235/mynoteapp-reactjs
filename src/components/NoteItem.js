@@ -47,7 +47,7 @@ export class NoteItem extends Component {
           <h5 className="card-title">{title} {this.renderNewFlag(lastEditDate)}</h5>
           <p className="card-text mb-1">{content}</p>
           <small className="text-muted">Last updated:  {this.renderDateTime(lastEditDate)}</small>
-          <div className="btn-group mt-1 d-block" role="group">
+          <div className="btn-group mt-1 d-block text-right" role="group">
             {this.renderEditBtn()}
             <button onClick={() => this.handleDelete(this.props.idItem)} type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
           </div>

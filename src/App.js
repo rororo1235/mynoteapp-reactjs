@@ -13,15 +13,16 @@ export class App extends Component {
   render() {
     var address = [];
     if (this.props.status.isSearchMode !== null) 
-      address.push("Search '" + this.props.status.isSearchMode + "'");
+      address.push("Search \"" + this.props.status.isSearchMode + "\"");
     if (this.props.status.isSortMode !== null) address.push("Sort");
     if (this.props.status.isAddMode) address.push("Add");
     if (this.props.status.isEditMode !== null) address.push("Edit");  
+
     return (
       <div className="bg-light text-dark">
         <TopMenu />
         <div className="container mt-3">
-          <div className="row">
+          <div className="row flex-column-reverse flex-md-row">
             <div className="col-sm-8 col-12 mb-3 px-2">
               <div className="bg-white border rounded shadow-sm">
                 <Breadcrumb address={address} />
