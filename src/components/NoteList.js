@@ -38,7 +38,6 @@ class NoteList extends Component {
 
   render() {
     var { noteData, isLoading, searchKey, sortMode } = this.props;
-
     if (searchKey !== null) {
       noteData = this.getResultSearch(searchKey, noteData);
     }

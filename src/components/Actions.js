@@ -1,8 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions/actionTypes";
+import jsonExporter from "./helper/jsonExporter";
 
 class Actions extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+       isExporting : false
+    }
+  }
+  
+  handleExport = (noteData) => {
+    this.setState({ isExporting : true });
+    setTimeout(async() =>  {
+      await jsonExporter(noteData, "myappnote-data").then(() => {
+        this.setState({ isExporting : false });
+      }); 
+    }, 3000)
+  }
+
+  renderLoadingBtn = () => (
+    <button className="btn btn-block btn-success" disabled>
+      <span className="spinner-border-sm spinner-border" role="status" />
+      <span className="sr-only">Loading...</span>
+    </button>
+    )
+  
   render() {
     return (
       <div className="card my-2">
@@ -11,14 +35,17 @@ class Actions extends Component {
         </div>
         <div className="card-body">
           <button className="btn btn-block btn-primary" onClick={this.props.showNoteForm}>Add</button>
-          <button className="btn btn-block btn-danger">Clear all</button>
-          {/* <button className="btn btn-block btn-primary" disabled>
-            <span className="spinner-border-sm spinner-border" role="status" />
-            <span className="sr-only">Loading...</span>
-          </button> */}
+          {this.state.isExporting ? this.renderLoadingBtn() : <button className="btn btn-block btn-outline-success" onClick={() => this.handleExport(this.props.noteData)}>Export all</button>}
+          <button className="btn btn-block btn-outline-danger" onClick={() => alert("This function is disabled.")}>Clear all</button>
         </div>
       </div>
     );
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    noteData: state.noteData.data
   }
 }
 
@@ -28,4 +55,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null,mapDispatchToProps)(Actions);
+export default connect(mapStateToProps, mapDispatchToProps)(Actions);
