@@ -32,7 +32,7 @@ class SearchAndSort extends Component {
   }
 
   render() {
-    const { isLoading } = this.props;
+    const { isLoading, searchKey } = this.props;
     if (isLoading)
       return (
         <div className="card">
@@ -54,7 +54,7 @@ class SearchAndSort extends Component {
             <form onSubmit={(event) => this.handleSearchSubmit(event)} onReset={(event) => this.handleCancelSearch(event)}>
               <input required onChange={(event) => this.handleChange(event)} name="searchKey" type="text" className="form-control mr-2" placeholder="Search key ..." />
               <div className="float-right btn-group mt-2">
-                {this.props.searchKey !== null ? <button type="reset" className="btn btn-secondary">Cancel</button> : null}
+                {searchKey !== null ? <button type="reset" className="btn btn-secondary">Cancel</button> : null}
                 <button type="submit" className="order-last btn btn-secondary ">Search</button>
               </div>
             </form>

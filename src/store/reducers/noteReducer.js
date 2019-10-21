@@ -6,7 +6,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    var newData = state.data;
+    var {data : newData} = state;
     switch (action.type) {
     case actionTypes.GET_ALL:
         return { ...state, data : action.payload, isLoading : false }
@@ -17,10 +17,9 @@ export default (state = initialState, action) => {
             .forEach(key => delete newData[key]);
         return { ...state, data : newData };
     case actionTypes.EDIT:
-        const idItem = Object.keys(action.item)[0];
-        newData[idItem] = action.item[idItem];
-        return { ...state, data : newData};
+        const {editedItem} = action;
+        return { ...state, data : {...newData, editedItem}};
     default:
-        return state
+        return state;
     }
 }

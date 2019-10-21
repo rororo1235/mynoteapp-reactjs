@@ -13,11 +13,9 @@ class Actions extends Component {
   
   handleExport = (noteData) => {
     this.setState({ isExporting : true });
-    setTimeout(async() =>  {
-      await jsonExporter(noteData, "myappnote-data").then(() => {
-        this.setState({ isExporting : false });
-      }); 
-    }, 3000)
+    setTimeout(() =>  
+      jsonExporter(noteData, "myappnote-data", () => this.setState({ isExporting : false }))
+    , 3000)
   }
 
   renderLoadingBtn = () => (

@@ -12,15 +12,14 @@ export const getAllNotes = () => {
     }
 }
 
-export const addNewNote = (newItem) => {
+export const addNewNote = (newTempItem) => {
     return dispatch => {
-        newItem.lastEditDate = new Date().getTime() / 1000 //time to unix
-        const id = noteDataRef.push(newItem).getKey();
-        const newNote = {};
-        newNote[id] = newItem;
+        newTempItem.lastEditDate = new Date().getTime() / 1000 //time to unix
+        const id = noteDataRef.push(newTempItem).getKey();
+        const newItem = {[id] : newTempItem}
         dispatch({
             type : actionTypes.ADD_NEW,
-            newItem : newNote
+            newItem
         })
     }
 } 
@@ -30,7 +29,7 @@ export const deleteNote = (noteId) => {
         noteDataRef.child(noteId).remove();
         dispatch({
             type : actionTypes.DELETE,
-            noteId : noteId
+            noteId
         })
     }
 }
@@ -40,7 +39,7 @@ export const saveEditNote = (editedItem) => {
         noteDataRef.update(editedItem);
         dispatch({
             type : actionTypes.EDIT,
-            item : editedItem
+            editedItem
         })
     }
 }

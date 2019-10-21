@@ -39,19 +39,10 @@ class NoteForm extends Component {
   };
 
   handleSubmitEdit = () => {
-    try {
-    var { title, content } = this.state;
-    //undefined check
-    title.toString();
-    content.toString();
-    } catch (e) {
-      if (!title) title = this.props.editModel.title;
-      if (!content) content = this.props.editModel.content;
-    }
-
-    var editedItem = {};
-    const lastEditDate = new Date().getTime() / 1000
-    editedItem[this.props.editModel.key] = { title, content,lastEditDate };
+    var { editModel } = this.props;
+    var { title = editModel.title, content = editModel.content} = (this.state===null ? {} : this.state);
+    const lastEditDate = new Date().getTime() / 1000;
+    var editedItem = { [editModel.id] : {title, content, lastEditDate} };
     this.props.editSaveFunc(editedItem);
     this.props.throwMessage(messageCreator.getMessEditDone());
   };
@@ -66,16 +57,10 @@ class NoteForm extends Component {
     else this.handleSubmitAdd(event);
   };
 
-  renderValue = value => {
-    return value ? value : "";
-  };
-
   render() {
-    var titleWidget = "Add";
-    if (this.props.editModel != null) {
-      var { key, title, content } = this.props.editModel;
-      titleWidget = "Edit";
-    }
+    const {editModel} = this.props;
+    const { id = "", title = "", content = "" } = (editModel===null ?  {} : editModel);
+    var titleWidget = (id ==="" ? "Add" : "Edit");
 
     return (
       <div className="card my-2 border-primary">
@@ -84,11 +69,11 @@ class NoteForm extends Component {
         </div>
         <div className="card-body">
           <form onSubmit={event => this.handleSubmit(event)}>
-            <input type="hidden" value={this.renderValue(key)} />
+            <input type="hidden" value={id} />
             <label htmlFor="title">Title</label>
             <input
               required
-              defaultValue={this.renderValue(title)}
+              defaultValue={title}
               type="text"
               className="form-control"
               name="title"
@@ -102,7 +87,7 @@ class NoteForm extends Component {
               type="text"
               className="form-control"
               name="content"
-              defaultValue={this.renderValue(content)}
+              defaultValue={content}
             />
             <button
               type="submit"

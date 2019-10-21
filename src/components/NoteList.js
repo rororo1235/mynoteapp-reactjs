@@ -37,7 +37,7 @@ class NoteList extends Component {
   };
 
   render() {
-    var { noteData, isLoading, searchKey, sortMode } = this.props;
+    var { noteData, isLoading, searchKey, sortMode, isEditMode } = this.props;
     if (searchKey !== null) {
       noteData = this.getResultSearch(searchKey, noteData);
     }
@@ -65,7 +65,7 @@ class NoteList extends Component {
             key={key}
             idItem={key}
             data={noteData[key]}
-            disableEditBtn={this.props.isEditMode !== null}
+            disableEditBtn={isEditMode !== null}
           />
         ))}
       </div>

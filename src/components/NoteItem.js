@@ -7,8 +7,7 @@ import * as messageCreator from "./helper/_messageCreator";
 class NoteItem extends Component {
 
   handleOpenEdit = (item, id) => {
-    item["key"] = id;
-    this.props.enterEditMode(item);
+    this.props.enterEditMode({...item, id});
   }
 
   handleDelete = (deleteId) => {
@@ -19,10 +18,9 @@ class NoteItem extends Component {
   } 
 
   renderNewFlag = (unixTime) => {
-    const nowUnixTime = Math.round((new Date()).getTime() / 1000);
-    const ONE_DAY = 86400;
+    const nowUnixTime = Math.round((new Date()).getTime() / 1000), ONE_DAY = 86400;
     if (nowUnixTime - unixTime < ONE_DAY/2)
-    return ( <span className="badge badge-danger badge-pill">new</span>);
+      return ( <span className="badge badge-danger badge-pill">new</span>);
   }
 
   renderDateTime = (unixTime) => {
@@ -33,26 +31,30 @@ class NoteItem extends Component {
   }
 
   renderEditBtn = () => {
-    if (this.props.disableEditBtn)
+    const {disableEditBtn, data, idItem} = this.props;
+    if (disableEditBtn)
       return (
         <button type="button" disabled className="btn btn-sm btn-outline-secondary">Edit</button>
       )
     return (
-      <button type="button" onClick={() => this.handleOpenEdit(this.props.data, this.props.idItem)} 
+      <button type="button" onClick={() => this.handleOpenEdit(data, idItem)} 
       className="btn btn-sm btn-outline-secondary">Edit</button>
   )}
 
   render() {
-    const {title, lastEditDate, content} = this.props.data;
+    const {data : { title, lastEditDate, content }, idItem} = this.props;
     return (
       <div className="card shadow-sm">
         <div className="card-body">
-          <h5 className="card-title">{title} {this.renderNewFlag(lastEditDate)}</h5>
-          <p className="card-text mb-1">{content}</p>
+          <h5 className="card-title mb-1">{title} {this.renderNewFlag(lastEditDate)}</h5>
           <small className="text-muted">Last updated:  {this.renderDateTime(lastEditDate)}</small>
+          <p className="card-text mb-1 text-justify">{content}</p>
           <div className="btn-group mt-1 d-block text-right" role="group">
             {this.renderEditBtn()}
-            <button onClick={() => this.handleDelete(this.props.idItem)} type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
+            <button 
+            // onClick={() => this.handleDelete(idItem)} 
+            data-toggle="modal" data-target="#confirmModal"
+            type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
           </div>
         </div>
       </div>
