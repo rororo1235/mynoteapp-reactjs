@@ -32,7 +32,7 @@ class SearchAndSort extends Component {
   }
 
   render() {
-    const { isLoading, searchKey } = this.props;
+    const { isLoading, searchKey, turnSortOn } = this.props;
     if (isLoading)
       return (
         <div className="card">
@@ -62,10 +62,10 @@ class SearchAndSort extends Component {
               Sort
             </button>
             <div className="dropdown-menu">
-                <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_TITLE_ASC)}>Title A-Z</button>
-                <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_TITLE_DESC)}>Title Z-A</button>
-                <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_DATE_ASC)}>Date asc</button>
-                <button className="dropdown-item btn" onClick={() => this.props.turnSortOn(actionTypes.SORT_DATE_DESC)}>Date desc</button>
+                <button className="dropdown-item btn" onClick={() => turnSortOn(actionTypes.SORT_TITLE_ASC)}>Title A-Z</button>
+                <button className="dropdown-item btn" onClick={() => turnSortOn(actionTypes.SORT_TITLE_DESC)}>Title Z-A</button>
+                <button className="dropdown-item btn" onClick={() => turnSortOn(actionTypes.SORT_DATE_ASC)}>Date asc</button>
+                <button className="dropdown-item btn" onClick={() => turnSortOn(actionTypes.SORT_DATE_DESC)}>Date desc</button>
                 <div role="separator" className="dropdown-divider" />
                 <button className="dropdown-item btn" onClick={this.handleCancelSort}>Reset sort</button>
             </div>

@@ -52,7 +52,7 @@ class NoteItem extends Component {
           <div className="btn-group mt-1 d-block text-right" role="group">
             {this.renderEditBtn()}
             <button 
-            // onClick={() => this.handleDelete(idItem)} 
+            onClick={() => this.handleDelete(idItem)} 
             data-toggle="modal" data-target="#confirmModal"
             type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
           </div>

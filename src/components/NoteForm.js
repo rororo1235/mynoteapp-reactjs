@@ -5,11 +5,15 @@ import { addNewNote, saveEditNote } from "../store/actions/noteDataActions";
 import * as messageCreator from "./helper/_messageCreator";
 
 class NoteForm extends Component {
+
+  isEditMode = () => {
+    return this.props.editModel !== null;
+  }
   
   handleCancel = event => {
     event.preventDefault();
     //var message = "";
-    if (this.props.editModel != null) {
+    if (this.isEditMode()) {
       this.props.cancelEdit();
       //message = messageCreator.getMessEditOff();
     } else {
@@ -39,18 +43,18 @@ class NoteForm extends Component {
   };
 
   handleSubmitEdit = () => {
-    var { editModel } = this.props;
+    var { editModel, editSaveFunc, throwMessage } = this.props;
     var { title = editModel.title, content = editModel.content} = (this.state===null ? {} : this.state);
     const lastEditDate = new Date().getTime() / 1000;
     var editedItem = { [editModel.id] : {title, content, lastEditDate} };
-    this.props.editSaveFunc(editedItem);
-    this.props.throwMessage(messageCreator.getMessEditDone());
+    editSaveFunc(editedItem);
+    throwMessage(messageCreator.getMessEditDone());
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    if (this.props.editModel != null) {
+    if (this.isEditMode()) {
       this.handleSubmitEdit();
       this.props.cancelEdit();
     }
@@ -58,9 +62,9 @@ class NoteForm extends Component {
   };
 
   render() {
-    const {editModel} = this.props;
-    const { id = "", title = "", content = "" } = (editModel===null ?  {} : editModel);
-    var titleWidget = (id ==="" ? "Add" : "Edit");
+    const isEditMode = this.isEditMode();
+    const { id = "", title = "", content = "" } = (isEditMode ?  this.props.editModel : {});
+    var titleWidget = (isEditMode ? "Edit" : "Add");
 
     return (
       <div className="card my-2 border-primary">

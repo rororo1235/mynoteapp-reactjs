@@ -11,11 +11,14 @@ class NoteList extends Component {
     this.props.getNotes();
   }
 
+  hasKeywordInTitleAndContent = (keyword, title, content) => {
+    return title.search(keyword) !== -1 || content.search(keyword) !== -1;
+  }
+
   getResultSearch = (keyword, allNotes) => {
     var result = {};
     Object.keys(allNotes).forEach(key => {
-      if (allNotes[key].title.search(keyword) !== -1 ||
-        allNotes[key].content.search(keyword) !== -1 )
+      if (this.hasKeywordInTitleAndContent(keyword, allNotes[key].title, allNotes[key].content))
         result[key] = allNotes[key];
     });
     return result;

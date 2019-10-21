@@ -26,14 +26,15 @@ class Actions extends Component {
     )
   
   render() {
+    const {showNoteForm, noteData} = this.props;
     return (
       <div className="card my-2">
         <div className="card-header">
           <h5 className="card-title">Action</h5>
         </div>
         <div className="card-body">
-          <button className="btn btn-block btn-primary" onClick={this.props.showNoteForm}>Add</button>
-          {this.state.isExporting ? this.renderLoadingBtn() : <button className="btn btn-block btn-outline-success" onClick={() => this.handleExport(this.props.noteData)}>Export all</button>}
+          <button className="btn btn-block btn-primary" onClick={showNoteForm}>Add</button>
+          {this.state.isExporting ? this.renderLoadingBtn() : <button className="btn btn-block btn-outline-success" onClick={() => this.handleExport(noteData)}>Export all</button>}
           <button className="btn btn-block btn-outline-danger" onClick={() => alert("This function is disabled.")}>Clear all</button>
         </div>
       </div>
@@ -41,7 +42,7 @@ class Actions extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     noteData: state.noteData.data
   }
