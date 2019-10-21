@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/mynoteapp-reactjs/static/css/main.b100e6da.chunk.css",
-    "main.js": "/mynoteapp-reactjs/static/js/main.d1eaf4c2.chunk.js",
-    "main.js.map": "/mynoteapp-reactjs/static/js/main.d1eaf4c2.chunk.js.map",
+    "main.js": "/mynoteapp-reactjs/static/js/main.1f67992d.chunk.js",
+    "main.js.map": "/mynoteapp-reactjs/static/js/main.1f67992d.chunk.js.map",
     "runtime-main.js": "/mynoteapp-reactjs/static/js/runtime-main.5d41af41.js",
     "runtime-main.js.map": "/mynoteapp-reactjs/static/js/runtime-main.5d41af41.js.map",
-    "static/js/2.ddb724a9.chunk.js": "/mynoteapp-reactjs/static/js/2.ddb724a9.chunk.js",
-    "static/js/2.ddb724a9.chunk.js.map": "/mynoteapp-reactjs/static/js/2.ddb724a9.chunk.js.map",
+    "static/js/2.398e519f.chunk.js": "/mynoteapp-reactjs/static/js/2.398e519f.chunk.js",
+    "static/js/2.398e519f.chunk.js.map": "/mynoteapp-reactjs/static/js/2.398e519f.chunk.js.map",
     "index.html": "/mynoteapp-reactjs/index.html",
-    "precache-manifest.c78070234be0d3b28f53bb3eee066333.js": "/mynoteapp-reactjs/precache-manifest.c78070234be0d3b28f53bb3eee066333.js",
+    "precache-manifest.8dec64684e0a02425698a6107fbf7132.js": "/mynoteapp-reactjs/precache-manifest.8dec64684e0a02425698a6107fbf7132.js",
     "service-worker.js": "/mynoteapp-reactjs/service-worker.js",
     "static/css/main.b100e6da.chunk.css.map": "/mynoteapp-reactjs/static/css/main.b100e6da.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.5d41af41.js",
-    "static/js/2.ddb724a9.chunk.js",
+    "static/js/2.398e519f.chunk.js",
     "static/css/main.b100e6da.chunk.css",
-    "static/js/main.d1eaf4c2.chunk.js"
+    "static/js/main.1f67992d.chunk.js"
   ]
 }
