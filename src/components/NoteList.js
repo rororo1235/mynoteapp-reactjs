@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Loading from "./Loading";
 import * as actionTypes from "../store/actions/actionTypes";
 import * as helper from "./helper/_function";
+import ModalConfirmDialog from "./ModalConfirmDialog";
 
 class NoteList extends Component {
   componentDidMount() {
@@ -68,6 +69,7 @@ class NoteList extends Component {
         )
     return (
       <div className="card-columns px-3 min-vh-100">
+        <ModalConfirmDialog />
         {Object.keys(noteData).map(key => (
           <NoteItem
             key={key}

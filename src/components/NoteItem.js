@@ -2,20 +2,12 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import { deleteNote } from "../store/actions/noteDataActions";
 import * as actionTypes from "../store/actions/actionTypes"
-import * as messageCreator from "./helper/_messageCreator";
 
 class NoteItem extends Component {
 
   handleOpenEdit = (item, id) => {
     this.props.enterEditMode({...item, id});
   }
-
-  handleDelete = (deleteId) => {
-    if (window.confirm("Are you sure ?")){
-      this.props.deleteFunc(deleteId);
-      this.props.throwMessage(messageCreator.getMessDeleteDone());
-    }
-  } 
 
   renderNewFlag = (unixTime) => {
     const nowUnixTime = Math.round((new Date()).getTime() / 1000), ONE_DAY = 86400;
@@ -44,20 +36,18 @@ class NoteItem extends Component {
   )}
 
   render() {
-    const {data : { title, lastEditDate, content }, idItem, idEditing} = this.props;
-    const isThisItemEditing = (idItem===idEditing);
+    const {data : { title, lastEditDate, content }, idItem, idEditing, showConfirmDeleteId} = this.props;
+    const isThisItemEditing = (idItem === idEditing);
     return (
-      <div className={isThisItemEditing ? "card shadow border-primary" : "card shadow-sm"}>
+      <div className={"card" + (isThisItemEditing ? " shadow" : " shadow-sm")}>
         <div className="card-body">
           <h5 className="card-title mb-1">{title} {this.renderNewFlag(lastEditDate)}</h5>
           <small className="text-muted">Last updated:  {this.renderDateTime(lastEditDate)}</small>
           <p className="card-text mb-1 text-justify">{content}</p>
           <div className="btn-group mt-1 d-block text-right" role="group">
             {this.renderEditBtn(isThisItemEditing)}
-            {isThisItemEditing ? "" : <button 
-            onClick={() => this.handleDelete(idItem)} 
-            data-toggle="modal" data-target="#confirmModal"
-            type="button" className="btn btn-sm btn-outline-secondary">Delete</button>}
+            {isThisItemEditing ? "" : <button data-toggle="modal" data-target="#confirmModal"
+            type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>showConfirmDeleteId(idItem)}>Delete</button>}
           </div>
         </div>
       </div>
@@ -74,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
         itemEdit : noteItem
       })
     },
-    throwMessage : (message) => dispatch({type: actionTypes.ADD_MESSAGE, message})
+    showConfirmDeleteId : (noteId) => dispatch({type: actionTypes.ADD_ID_TO_COFIRM_REMOVE, noteId})
   }
 }
 

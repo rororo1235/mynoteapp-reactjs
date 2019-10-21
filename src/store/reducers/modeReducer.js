@@ -4,7 +4,8 @@ const initialState = {
   isAddMode: false,
   isEditMode: null,
   isSearchMode: null,
-  isSortMode : null
+  isSortMode : null,
+  idToConfirmDelete : null
 };
 
 export default (state = initialState, action) => {
@@ -25,6 +26,8 @@ export default (state = initialState, action) => {
       return { ...state, isSortMode: action.modeName };
     case actionTypes.TURN_SORT_OFF:
       return { ...state, isSortMode: null };
+    case actionTypes.ADD_ID_TO_COFIRM_REMOVE:
+      return { ...state, idToConfirmDelete : action.noteId };
     default:
       return state;
   }
