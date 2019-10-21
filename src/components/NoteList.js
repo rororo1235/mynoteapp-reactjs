@@ -39,8 +39,13 @@ class NoteList extends Component {
     }
   };
 
+  getEditingId = () => {
+    return this.props.editModel !== null ? this.props.editModel.id : null;
+  }
+
   render() {
-    var { noteData, isLoading, searchKey, sortMode, isEditMode } = this.props;
+    var { noteData, isLoading, searchKey, sortMode } = this.props;
+
     if (searchKey !== null) {
       noteData = this.getResultSearch(searchKey, noteData);
     }
@@ -68,7 +73,7 @@ class NoteList extends Component {
             key={key}
             idItem={key}
             data={noteData[key]}
-            disableEditBtn={isEditMode !== null}
+            idEditing={this.getEditingId()}
           />
         ))}
       </div>
@@ -80,7 +85,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     noteData: state.noteData.data,
     isLoading: state.noteData.isLoading,
-    isEditMode: state.appStatus.isEditMode,
+    editModel: state.appStatus.isEditMode,
     searchKey: state.appStatus.isSearchMode,
     sortMode: state.appStatus.isSortMode
   };

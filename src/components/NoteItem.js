@@ -30,11 +30,13 @@ class NoteItem extends Component {
     );
   }
 
-  renderEditBtn = () => {
-    const {disableEditBtn, data, idItem} = this.props;
-    if (disableEditBtn)
+  renderEditBtn = (isThisItemEditing = false) => {
+    const {data, idItem, idEditing} = this.props;
+    if (idEditing !== null)
       return (
-        <button type="button" disabled className="btn btn-sm btn-outline-secondary">Edit</button>
+        <button type="button" disabled className="btn btn-sm btn-outline-secondary">
+          {isThisItemEditing ? "Editing ..." : "Edit"}
+        </button>
       )
     return (
       <button type="button" onClick={() => this.handleOpenEdit(data, idItem)} 
@@ -42,19 +44,20 @@ class NoteItem extends Component {
   )}
 
   render() {
-    const {data : { title, lastEditDate, content }, idItem} = this.props;
+    const {data : { title, lastEditDate, content }, idItem, idEditing} = this.props;
+    const isThisItemEditing = (idItem===idEditing);
     return (
-      <div className="card shadow-sm">
+      <div className={isThisItemEditing ? "card shadow border-primary" : "card shadow-sm"}>
         <div className="card-body">
           <h5 className="card-title mb-1">{title} {this.renderNewFlag(lastEditDate)}</h5>
           <small className="text-muted">Last updated:  {this.renderDateTime(lastEditDate)}</small>
           <p className="card-text mb-1 text-justify">{content}</p>
           <div className="btn-group mt-1 d-block text-right" role="group">
-            {this.renderEditBtn()}
-            <button 
+            {this.renderEditBtn(isThisItemEditing)}
+            {isThisItemEditing ? "" : <button 
             onClick={() => this.handleDelete(idItem)} 
             data-toggle="modal" data-target="#confirmModal"
-            type="button" className="btn btn-sm btn-outline-secondary">Delete</button>
+            type="button" className="btn btn-sm btn-outline-secondary">Delete</button>}
           </div>
         </div>
       </div>
