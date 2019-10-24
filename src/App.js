@@ -25,13 +25,13 @@ export class App extends Component {
         <Messages />
         <div className="container mt-3">
           <div className="row flex-column-reverse flex-md-row">
-            <div className="col-sm-8 col-12 mb-3 px-2">
+            <div className="col-md-8 col-12 mb-3 px-2">
               <div className="bg-white border rounded shadow-sm">
                 <Breadcrumb address={address} />
                 <NoteList />
               </div>
             </div>
-            <div className="col-sm-4 px-2">
+            <div className="col-md-4 px-2">
               <SearchAndSort />
               {this.props.status.isAddMode 
                 || this.props.status.isEditMode != null ? <NoteForm /> : <Actions />}

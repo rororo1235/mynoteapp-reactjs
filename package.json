@@ -2,7 +2,7 @@
   "name": "mynoteapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rororo1235.github.io/mynoteapp-reactjs",
+  "homepage": "https://tuanpq1998.github.io/mynoteapp-reactjs",
   "dependencies": {
     "firebase": "^7.2.1",
     "gh-pages": "^2.1.1",

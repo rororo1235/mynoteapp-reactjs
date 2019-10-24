@@ -1,22 +1,16 @@
-.App {
-  text-align: center;
+
+
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 2;
+  
+  }
 }
 
-.App-logo {
-  height: 40vmin;
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+@media (min-width: 1200px) {
+  .card-columns {
+    column-count: 3;
+  
+  }
 }
